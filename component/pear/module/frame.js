@@ -57,7 +57,7 @@ layui.define(['jquery', 'element'], function (exports) {
 	function frameLoading(iframeEl, loadingEl, isLoading) {
 		if (isLoading) {
 			loadingEl.css({ display: 'block' });
-			iframeEl.load(function () {
+			$(iframeEl).on('load', function () {
 				loadingEl.fadeOut(1000);
 			})
 		}
