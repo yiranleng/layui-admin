@@ -515,7 +515,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			var createList = function (data) {
 				var _listHtml = '';
 				$.each(data, function (index, item) {
-					_listHtml += '<li smenu-id=' + item.info.id + ' smenu-icon=' + item.info.icon + ' smenu-url=' + item.info.href + ' smenu-title=' + item.info.title + ' smenu-type=' + item.info.type + '>';
+					_listHtml += '<li smenu-id="' + item.info.id + '" smenu-icon="' + item.info.icon + '" smenu-url="' + item.info.href + '" smenu-title="' + item.info.title + '" smenu-type="' + item.info.type + '">';
 					_listHtml += '  <span><i style="margin-right:10px" class=" ' + item.info.icon + '"></i>' + item.path + '</span>';
 					_listHtml += '  <i class="layui-icon layui-icon-right"></i>';
 					_listHtml += '</li>'
