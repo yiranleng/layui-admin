@@ -109,12 +109,6 @@ Pear Admin Layui
 |![输入图片说明](https://images.gitee.com/uploads/images/2021/0331/222533_abda701e_4835367.png "屏幕截图.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0331/222547_db49f0b8_4835367.png "屏幕截图.png")   |
 |![输入图片说明](https://images.gitee.com/uploads/images/2021/0331/222611_7ffd378b_4835367.png "屏幕截图.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0331/222625_55e092f3_4835367.png "屏幕截图.png")   |
 
-### 联系我们
-
-- 申请加入：[contact@pearadmin.com](mailto:contact@pearadmin.com)
-- 意见反馈：[contact@pearadmin.com](mailto:contact@pearadmin.com)
-- 社区交流：[➀ 682110771](https://qm.qq.com/cgi-bin/qm/qr?k=wguN0SYYFVTX9K-5Muf36E_J77bCzdDD&authKey=Ye5voDJGOphYUvypWJHOEyHoYBcgzk1l7djAS4fWcmls1jybLnYjwLrzwsS6Jdo3&group_code=682110771), [➁ 864581125](https://jq.qq.com/?_wv=1027&k=3K8GjF2G)
-
 ### 开源共建
 
 <p style="padding:10px;"  width="90%">
