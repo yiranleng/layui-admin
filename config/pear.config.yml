@@ -80,3 +80,4 @@ other:
 header:
   ## 站内消息，通过 false 设置关闭
   message: "admin/data/message.json"
+  
