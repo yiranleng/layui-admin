@@ -44,7 +44,14 @@ layui.config({
 	nprogress: "nprogress",  // 进度过渡
 	watermark:"watermark/watermark", //水印
 	fullscreen:"fullscreen",  //全屏组件
-	popover:"popover/popover" //汽泡组件
-}).use(['layer', 'theme'], function () {
+	popover:"popover/popover", //汽泡组件
+	translate:"translate"	//多语言翻译组件
+}).use(['layer', 'theme', 'translate'], function () {
 	layui.theme.changeTheme(window, false);
+	
+	var translate = layui.translate;
+	//当页面加载完后执行翻译操作
+	window.onload = function () {
+		translate.execute();
+	}; 
 });
