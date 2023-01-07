@@ -3,5 +3,5 @@
 	display: none;
 }
 .layui-header>ul>#translate{
-	display: block;
+	display: inline;
 }
