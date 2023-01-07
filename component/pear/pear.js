@@ -52,6 +52,7 @@ layui.config({
 	var translate = layui.translate;
 	//当页面加载完后执行翻译操作
 	window.onload = function () {
+		translate.listener.start();	//开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化部分，是指当 translate.execute(); 已经完全执行完毕之后，如果页面再有变化的部分，才会对其进行翻译。
 		translate.execute();
 	}; 
 });
