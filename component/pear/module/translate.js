@@ -1,4 +1,9 @@
-/**
+/*
+ * 多语言翻译，作者：管雷鸣
+ */      
+layui.define(function(exports){ //提示：模块也可以依赖其它模块，如：layui.define('mod1', callback);
+	//下行是直接将https://gitee.com/mail_osc/translate 压缩后粘贴过来
+	/**
  * 国际化，网页自动翻译。
  * 整理人：管雷鸣
  */
@@ -320,31 +325,51 @@ var translate = {
 		isStart:false,
 		//开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化部分，是指当 translate.execute(); 已经完全执行完毕之后，如果页面再有变化的部分，才会对其进行翻译。
 		start:function(){
-			window.onload = function(){
+			
+			translate.temp_linstenerStartInterval = setInterval(function(){
+				if(document.readyState == 'complete'){
+					//dom加载完成，进行启动
+					clearInterval(translate.temp_linstenerStartInterval);//停止
+					translate.listener.addListener();
+				}
+				
+				//if(translate.listener.isExecuteFinish){ //执行完过一次，那才能使用
+					/*if(translate.listener.isStart){
+						//已开启了
+						return;
+					}*/
+					
+					//console.log('translate.temp_linstenerStartInterval Finish!');
+				//}
+	        }, 50);
+			
+			
+		//	window.onload = function(){
 				/* if(translate.listener.isStart){
 					//已开启了
 					return;
 				} */
 				
 				//判断是否是执行完一次了
-		        translate.temp_linstenerStartInterval = setInterval(function(){
-					if(translate.listener.isExecuteFinish){ //执行完过一次，那才能使用
+		//        translate.temp_linstenerStartInterval = setInterval(function(){
+					//if(translate.listener.isExecuteFinish){ //执行完过一次，那才能使用
 						/*if(translate.listener.isStart){
 							//已开启了
 							return;
 						}*/
-						clearInterval(translate.temp_linstenerStartInterval);//停止
-						translate.listener.isStart = true;
-						translate.listener.addListener();
+		//				clearInterval(translate.temp_linstenerStartInterval);//停止
+		//				translate.listener.addListener();
 						//console.log('translate.temp_linstenerStartInterval Finish!');
-					}
-		        }, 50);
-			}
+					//}
+		//	      }, 50);
+		//	}
 			
 			
 		},
 		//增加监听，开始监听。这个不要直接调用，需要使用上面的 start() 开启
 		addListener:function(){
+			translate.listener.isStart = true; //记录已执行过启动方法了
+			
 			//选择需要观察变动的节点
 			//const targetNode = document.getElementById('some-id');
 			const targetNode = document;
@@ -359,11 +384,10 @@ var translate = {
 			        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
 						//多了个组件
 						documents.push.apply(documents,mutation.addedNodes);
-			            //console.log(mutation.addedNodes.nodeValue);
+			            console.log(mutation.addedNodes);
+			        //}else if (mutation.type === 'attributes') {
+			        //   console.log('The ' + mutation.attributeName + ' attribute was modified.');
 			        }
-			        //else if (mutation.type === 'attributes') {
-			         //  console.log('The ' + mutation.attributeName + ' attribute was modified.');
-			        //}
 			    }
 			    
 				//console.log(documents);
@@ -476,7 +500,7 @@ var translate = {
 		//每次执行execute，都会生成一个唯一uuid，也可以叫做队列的唯一标识，每一次执行execute都会创建一个独立的翻译执行队列
 		var uuid = translate.util.uuid();
 		this.nodeQueue[uuid] = new Array(); //创建
-		console.log(uuid);
+		//console.log(uuid);
 		
 		//如果页面打开第一次使用，先判断缓存中有没有上次使用的语种，从缓存中取出
 		if(this.to == null || this.to == ''){
@@ -513,6 +537,22 @@ var translate = {
 		var all;
 		if(typeof(docs) != 'undefined'){
 			//1. 这个方法已经指定的翻译 nodes
+			
+			if(docs == null){
+				//要翻译的目标区域不存在
+				cnosole.log('translate.execute(...) 中传入的要翻译的目标区域不存在。');
+				return;
+			}
+			
+			if(typeof(docs.length) == 'undefined'){
+				//不是数组，是单个元素
+				all = new Array();
+				all[0] = docs;
+			}else{
+				//是数组，直接赋予
+				all = documents;
+			}
+			
 		}else if(this.documents != null && typeof(this.documents) != 'undefined' && this.documents.length > 0){
 			//2. setDocuments 指定的
 			all = this.documents;
@@ -1397,7 +1437,7 @@ var translate = {
 		 */
 		post:function(url, data, func){
 			var headers = {
-				'content-type':'application/x-www-form-urlencoded'
+				'content-type':'application/x-www-form-urlencoded',
 			};
 			this.send(url, data, func, 'post', true, headers, null);
 		},
@@ -1485,3 +1525,10 @@ try{
 	translate.init();
 	//translate.execute();
 }catch(e){ console.log(e); }
+
+	
+	//默认就是用新的v2版本
+	translate.setUseVersion2();
+	//输出 translate 接口
+  	exports('translate', translate);
+});
