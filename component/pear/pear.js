@@ -49,11 +49,11 @@ layui.config({
 }).use(['layer', 'theme'], function () {
 	layui.theme.changeTheme(window, false);
 	
-	if(typeof(window.translate.temp_pearInterval) == 'undefined'){
-		window.translate.temp_pearInterval = setInterval(function(){
+	if(typeof(template_temp_pearInterval) == 'undefined'){
+		var template_temp_pearInterval = setInterval(function(){
 			if(typeof(translate) != 'undefined' && translate.listener.isStart){ //admin.js初始化完毕，translate已初始化成功
-				clearInterval(window.translate.temp_pearInterval);//停止
-				console.log('window.translate.temp_pearIntervalstop');
+				clearInterval(template_temp_pearInterval);//停止
+				console.log('template_temp_pearInterval stop');
 				
 				translate.selectLanguageTag.show = false; //内页中不显示 select 语言选择，因为在顶部已经有了		
 				translate.listener.start();	//开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化部分，是指当 translate.execute(); 已经完全执行完毕之后，如果页面再有变化的部分，才会对其进行翻译。
