@@ -421,7 +421,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				if(typeof(option.translate) == 'undefined'){
 					return;
 				}
-				window.pear.config.translate = option.translate; //暴露 pear.config.yml 中的 translate 配置出来，以便子页面在pear中获取配置信息。
+				window.pearTranslateConfig = option.translate; //暴露 pear.config.yml 中的 translate 配置出来，以便子页面在pear中获取配置信息。
 				
 				/*
 				

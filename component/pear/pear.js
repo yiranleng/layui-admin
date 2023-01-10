@@ -51,23 +51,25 @@ layui.config({
 	
 	/***** translate.js 翻译 ******/
 	var template_temp_pearInterval = setInterval(function(){
-		if(typeof(parent.window.pear) == 'undefined' || typeof(parent.window.pear.config) == 'undefined' || typeof(parent.window.pear.config.translate) == 'undefined'){
+		if(typeof(parent.window.pearTranslateConfig) == 'undefined'){
 			//配置还没加载出来，等待加载
 			return;
 		}
 		//admin.js 初始化完毕，translate配置已获取成功
+		var translateConfig = parent.window.pearTranslateConfig;
+		
 		clearInterval(template_temp_pearInterval);//停止
 		console.log('template_temp_pearInterval stop');
 		
 		/***** 配置项赋予 *****/
-		if(typeof(window.pear.config.translate.autoDiscriminateLocalLanguage) != 'undefined' && (window.pear.config.translate.autoDiscriminateLocalLanguage == true || option.translate.autoDiscriminateLocalLanguage == 'true' )){
+		if(typeof(translateConfig.autoDiscriminateLocalLanguage) != 'undefined' && (translateConfig.autoDiscriminateLocalLanguage == true || option.translate.autoDiscriminateLocalLanguage == 'true' )){
 			translate.setAutoDiscriminateLocalLanguage();	//设置用户第一次用时，自动识别其所在国家的语种进行切换
 		}
-		if(typeof(window.pear.config.translate.currentLanguage) != 'undefined' && window.pear.config.translate.currentLanguage.length > 0){
-			translate.language.setLocal(window.pear.config.translate.currentLanguage);
+		if(typeof(translateConfig.currentLanguage) != 'undefined' && translateConfig.currentLanguage.length > 0){
+			translate.language.setLocal(translateConfig.currentLanguage);
 		}
-		if(typeof(window.pear.config.translate.ignoreClass) != 'undefined' && window.pear.config.translate.ignoreClass.length > 0){
-			var classs = window.pear.config.translate.ignoreClass.split(',');
+		if(typeof(translateConfig.ignoreClass) != 'undefined' && translateConfig.ignoreClass.length > 0){
+			var classs = translateConfig.ignoreClass.split(',');
 			for(var ci = 0; ci < classs.length; ci++){
 				var className = classs[ci].trim();
 				if(className.length > 0){
@@ -80,8 +82,8 @@ layui.config({
 				}
 			}
 		}
-		if(typeof(window.pear.config.translate.ignoreTag) != 'undefined' && window.pear.config.translate.ignoreTag.length > 0){
-			var tags = window.pear.config.translate.ignoreTag.split(',');
+		if(typeof(translateConfig.ignoreTag) != 'undefined' && translateConfig.ignoreTag.length > 0){
+			var tags = translateConfig.ignoreTag.split(',');
 			for(var ti = 0; ti < tags.length; ti++){
 				var tagName = tags[ti].trim();
 				if(tagName.length > 0){
