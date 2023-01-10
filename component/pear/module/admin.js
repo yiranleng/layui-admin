@@ -420,7 +420,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					return;
 				}
 				window.translate = translate;
-				if(typeof(option.translate.autoDiscriminateLocalLanguage) != 'undefined' && option.translate.autoDiscriminateLocalLanguage == true){
+				if(typeof(option.translate.autoDiscriminateLocalLanguage) != 'undefined' && (option.translate.autoDiscriminateLocalLanguage == true || option.translate.autoDiscriminateLocalLanguage == 'true' )){
 					translate.setAutoDiscriminateLocalLanguage();	//设置用户第一次用时，自动识别其所在国家的语种进行切换
 				}
 				if(typeof(option.translate.currentLanguage) != 'undefined' && option.translate.currentLanguage.length > 0){
