@@ -98,21 +98,20 @@ layui.config({
 		}
 		//设置使用v2.x 版本
 		translate.setUseVersion2(); 
+		//开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化部分，是指当 translate.execute(); 已经完全执行完毕之后，如果页面再有变化的部分，才会对其进行翻译。
+		translate.listener.start();	
 		
 		//页面加载完毕后执行翻译
-		window.temp_pearExecuteInterval = setInterval(function(){
-			if(document.readyState == 'complete'){
-				//dom加载完成，进行启动
-				clearInterval(window.translate.temp_pearExecuteInterval);//停止
-				console.log('window.translate.temp_pearExecuteInterval stop');
-				
-				translate.listener.start();	//开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化部分，是指当 translate.execute(); 已经完全执行完毕之后，如果页面再有变化的部分，才会对其进行翻译。
+		if(document.readyState == 'complete'){
+			translate.execute();
+		}else{
+			window.onload = function(){
 				translate.execute();
-				
-				//避免有遗漏，特别是表格的render渲染等，诡异的会复原
-				setTimeout(translate.execute,1500);
 			}
-	    }, 30);
+		}
+		//避免有遗漏，特别是表格的render渲染等，诡异的会复原
+		setTimeout(translate.execute,1500);
+		console.log('translate execute')
 		
     }, 30);
 	console.log('template_temp_pearInterval create')
