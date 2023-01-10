@@ -416,6 +416,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				}
 			},
 			this.translate = function(option){
+				console.log('translate ....')
+				console.log(option);
 				if(typeof(option.translate) == 'undefined'){
 					return;
 				}
@@ -951,6 +953,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			if (param.header.message != false) {
 				pearAdmin.messageRender(param);
 			}
+			pearAdmin.translate(param);
 		}
 
 		function getColorById(id) {
