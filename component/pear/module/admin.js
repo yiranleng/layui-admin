@@ -456,13 +456,19 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				}
 				translate.setUseVersion2(); //设置使用v2.x 版本
 				
-				window.onload = function(){
-					translate.listener.start();	//开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化部分，是指当 translate.execute(); 已经完全执行完毕之后，如果页面再有变化的部分，才会对其进行翻译。
-					translate.execute();
-					
-					//避免有遗漏，特别是表格的render渲染等，诡异的会复原
-					setTimeout(translate.execute,1500);
-				}
+				window.translate.temp_layuiExecuteInterval = setInterval(function(){
+					if(document.readyState == 'complete'){
+						//dom加载完成，进行启动
+						clearInterval(window.translate.temp_layuiExecuteInterval);//停止
+						console.log('window.translate.temp_layuiExecuteInterval stop');
+						
+						translate.listener.start();	//开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化部分，是指当 translate.execute(); 已经完全执行完毕之后，如果页面再有变化的部分，才会对其进行翻译。
+						translate.execute();
+						
+						//避免有遗漏，特别是表格的render渲染等，诡异的会复原
+						setTimeout(translate.execute,1500);
+					}
+		        }, 30);
 			}
 		};
 
