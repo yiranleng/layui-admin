@@ -46,13 +46,6 @@ layui.config({
 	fullscreen:"fullscreen",  //全屏组件
 	popover:"popover/popover", //汽泡组件
 	translate:"translate"	//多语言翻译组件
-}).use(['layer', 'theme', 'translate'], function () {
+}).use(['layer', 'theme'], function () {
 	layui.theme.changeTheme(window, false);
-	
-	var translate = layui.translate;
-	//当页面加载完后执行翻译操作
-	//window.onload = function () {
-		translate.listener.start();	//开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化部分，是指当 translate.execute(); 已经完全执行完毕之后，如果页面再有变化的部分，才会对其进行翻译。
-		translate.execute();
-	//}; 
 });

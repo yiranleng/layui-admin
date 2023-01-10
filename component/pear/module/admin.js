@@ -1,4 +1,4 @@
-layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'menu', 'frame', 'theme', 'convert','fullscreen'],
+layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'menu', 'frame', 'theme', 'convert','fullscreen', 'translate'],
 	function(exports) {
 		"use strict";
 
@@ -12,7 +12,8 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 			pearFrame = layui.frame,
 			pearTheme = layui.theme,
 			message = layui.message,
-			fullscreen=layui.fullscreen;
+			fullscreen=layui.fullscreen,
+			translate = layui.translate;
 
 		var bodyFrame;
 		var sideMenu;
@@ -413,6 +414,49 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 						$(".fullScreen").eq(0).addClass("layui-icon-screen-restore");
 					});
 				}
+			},
+			this.translate = function(option){
+				if(typeof(option.translate) == 'undefined'){
+					return;
+				}
+				window.translate = translate;
+				if(typeof(option.translate.autoDiscriminateLocalLanguage) != 'undefined' && option.translate.autoDiscriminateLocalLanguage == true){
+					translate.setAutoDiscriminateLocalLanguage();	//设置用户第一次用时，自动识别其所在国家的语种进行切换
+				}
+				if(typeof(option.translate.currentLanguage) != 'undefined' && option.translate.currentLanguage.length > 0){
+					translate.language.setLocal(option.translate.currentLanguage);
+				}
+				if(typeof(option.translate.ignoreClass) != 'undefined' && option.translate.ignoreClass.length > 0){
+					var classs = option.translate.ignoreClass.split(',');
+					for(var ci = 0; ci < classs.length; ci++){
+						var className = classs[i].trim();
+						if(className.length > 0){
+							if(translate.ignore.class.indexOf(className.toLowerCase()) > -1){
+								//已经有了，忽略
+							}else{
+								//还没有，加入
+								translate.ignore.class.push(className);
+							}
+						}
+					}
+				}
+				if(typeof(option.translate.ignoreTag) != 'undefined' && option.translate.ignoreTag.length > 0){
+					var classs = option.translate.ignoreTag.split(',');
+					for(var ci = 0; ci < classs.length; ci++){
+						var className = classs[i].trim();
+						if(className.length > 0){
+							if(translate.ignore.tag.indexOf(className.toLowerCase()) > -1){
+								//已经有了，忽略
+							}else{
+								//还没有，加入
+								translate.ignore.tag.push(className);
+							}
+						}
+					}
+				}
+				
+				translate.listener.start();	//开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化部分，是指当 translate.execute(); 已经完全执行完毕之后，如果页面再有变化的部分，才会对其进行翻译。
+				translate.execute();
 			}
 		};
 
