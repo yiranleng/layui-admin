@@ -421,56 +421,14 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				if(typeof(option.translate) == 'undefined'){
 					return;
 				}
-				//window.translate = translate;
-				if(typeof(option.translate.autoDiscriminateLocalLanguage) != 'undefined' && (option.translate.autoDiscriminateLocalLanguage == true || option.translate.autoDiscriminateLocalLanguage == 'true' )){
-					translate.setAutoDiscriminateLocalLanguage();	//设置用户第一次用时，自动识别其所在国家的语种进行切换
-				}
-				if(typeof(option.translate.currentLanguage) != 'undefined' && option.translate.currentLanguage.length > 0){
-					translate.language.setLocal(option.translate.currentLanguage);
-				}
-				if(typeof(option.translate.ignoreClass) != 'undefined' && option.translate.ignoreClass.length > 0){
-					var classs = option.translate.ignoreClass.split(',');
-					for(var ci = 0; ci < classs.length; ci++){
-						var className = classs[ci].trim();
-						if(className.length > 0){
-							if(translate.ignore.class.indexOf(className.toLowerCase()) > -1){
-								//已经有了，忽略
-							}else{
-								//还没有，加入
-								translate.ignore.class.push(className);
-							}
-						}
-					}
-				}
-				if(typeof(option.translate.ignoreTag) != 'undefined' && option.translate.ignoreTag.length > 0){
-					var tags = option.translate.ignoreTag.split(',');
-					for(var ti = 0; ti < tags.length; ti++){
-						var tagName = tags[ti].trim();
-						if(tagName.length > 0){
-							if(translate.ignore.tag.indexOf(tagName.toLowerCase()) > -1){
-								//已经有了，忽略
-							}else{
-								//还没有，加入
-								translate.ignore.tag.push(tagName);
-							}
-						}
-					}
-				}
-				translate.setUseVersion2(); //设置使用v2.x 版本
+				window.pear.config.translate = option.translate; //暴露 pear.config.yml 中的 translate 配置出来，以便子页面在pear中获取配置信息。
 				
-				window.translate.temp_layuiExecuteInterval = setInterval(function(){
-					if(document.readyState == 'complete'){
-						//dom加载完成，进行启动
-						clearInterval(window.translate.temp_layuiExecuteInterval);//停止
-						console.log('window.translate.temp_layuiExecuteInterval stop');
-						
-						translate.listener.start();	//开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化部分，是指当 translate.execute(); 已经完全执行完毕之后，如果页面再有变化的部分，才会对其进行翻译。
-						translate.execute();
-						
-						//避免有遗漏，特别是表格的render渲染等，诡异的会复原
-						setTimeout(translate.execute,1500);
-					}
-		        }, 30);
+				/*
+				
+				因为所有页面中都有 pear.js，但admin.js只有主页面中才有，但翻译能力是需要所有页面都具备的，故而放到pear.js 之中，老哥看是否合理，或怎么进行一下调整。
+				
+				 */
+			
 			}
 		};
 

@@ -46,16 +46,64 @@ layui.config({
 	fullscreen:"fullscreen",  //全屏组件
 	popover:"popover/popover", //汽泡组件
 	translate:"translate"	//多语言翻译组件
-}).use(['layer', 'theme'], function () {
+}).use(['layer', 'theme', 'translate'], function () {
 	layui.theme.changeTheme(window, false);
 	
-	if(typeof(template_temp_pearInterval) == 'undefined'){
-		var template_temp_pearInterval = setInterval(function(){
-			if(typeof(translate) != 'undefined' && translate.listener.isStart){ //admin.js初始化完毕，translate已初始化成功
-				clearInterval(template_temp_pearInterval);//停止
-				console.log('template_temp_pearInterval stop');
+	/***** translate.js 翻译 ******/
+	var template_temp_pearInterval = setInterval(function(){
+		if(typeof(parent.window.pear) == 'undefined' || typeof(parent.window.pear.config) == 'undefined' || typeof(parent.window.pear.config.translate) == 'undefined'){
+			//配置还没加载出来，等待加载
+			return;
+		}
+		//admin.js 初始化完毕，translate配置已获取成功
+		clearInterval(template_temp_pearInterval);//停止
+		console.log('template_temp_pearInterval stop');
+		
+		/***** 配置项赋予 *****/
+		if(typeof(window.pear.config.translate.autoDiscriminateLocalLanguage) != 'undefined' && (window.pear.config.translate.autoDiscriminateLocalLanguage == true || option.translate.autoDiscriminateLocalLanguage == 'true' )){
+			translate.setAutoDiscriminateLocalLanguage();	//设置用户第一次用时，自动识别其所在国家的语种进行切换
+		}
+		if(typeof(window.pear.config.translate.currentLanguage) != 'undefined' && window.pear.config.translate.currentLanguage.length > 0){
+			translate.language.setLocal(window.pear.config.translate.currentLanguage);
+		}
+		if(typeof(window.pear.config.translate.ignoreClass) != 'undefined' && window.pear.config.translate.ignoreClass.length > 0){
+			var classs = window.pear.config.translate.ignoreClass.split(',');
+			for(var ci = 0; ci < classs.length; ci++){
+				var className = classs[ci].trim();
+				if(className.length > 0){
+					if(translate.ignore.class.indexOf(className.toLowerCase()) > -1){
+						//已经有了，忽略
+					}else{
+						//还没有，加入
+						translate.ignore.class.push(className);
+					}
+				}
+			}
+		}
+		if(typeof(window.pear.config.translate.ignoreTag) != 'undefined' && window.pear.config.translate.ignoreTag.length > 0){
+			var tags = window.pear.config.translate.ignoreTag.split(',');
+			for(var ti = 0; ti < tags.length; ti++){
+				var tagName = tags[ti].trim();
+				if(tagName.length > 0){
+					if(translate.ignore.tag.indexOf(tagName.toLowerCase()) > -1){
+						//已经有了，忽略
+					}else{
+						//还没有，加入
+						translate.ignore.tag.push(tagName);
+					}
+				}
+			}
+		}
+		//设置使用v2.x 版本
+		translate.setUseVersion2(); 
+		
+		//页面加载完毕后执行翻译
+		window.temp_pearExecuteInterval = setInterval(function(){
+			if(document.readyState == 'complete'){
+				//dom加载完成，进行启动
+				clearInterval(window.translate.temp_pearExecuteInterval);//停止
+				console.log('window.translate.temp_pearExecuteInterval stop');
 				
-				translate.selectLanguageTag.show = false; //内页中不显示 select 语言选择，因为在顶部已经有了		
 				translate.listener.start();	//开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化部分，是指当 translate.execute(); 已经完全执行完毕之后，如果页面再有变化的部分，才会对其进行翻译。
 				translate.execute();
 				
@@ -63,6 +111,8 @@ layui.config({
 				setTimeout(translate.execute,1500);
 			}
 	    }, 30);
-	}
+		
+    }, 30);
+	console.log('template_temp_pearInterval create')
 	
 });
