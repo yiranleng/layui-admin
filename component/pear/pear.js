@@ -51,7 +51,7 @@ layui.config({
 	
 	if(typeof(window.translate.temp_pearInterval) == 'undefined'){
 		window.translate.temp_pearInterval = setInterval(function(){
-			if(typeof(translate) != 'undefined' && translate.listener.start){ //admin.js初始化完毕，translate已初始化成功
+			if(typeof(translate) != 'undefined' && translate.listener.isStart){ //admin.js初始化完毕，translate已初始化成功
 				clearInterval(window.translate.temp_pearInterval);//停止
 				console.log('window.translate.temp_pearIntervalstop');
 				
