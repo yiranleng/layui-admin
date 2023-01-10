@@ -62,7 +62,7 @@ layui.config({
 		console.log('template_temp_pearInterval stop');
 		
 		/***** 配置项赋予 *****/
-		if(typeof(translateConfig.autoDiscriminateLocalLanguage) != 'undefined' && (translateConfig.autoDiscriminateLocalLanguage == true || option.translate.autoDiscriminateLocalLanguage == 'true' )){
+		if(typeof(translateConfig.autoDiscriminateLocalLanguage) != 'undefined' && (translateConfig.autoDiscriminateLocalLanguage == true || translateConfig.autoDiscriminateLocalLanguage == 'true' )){
 			translate.setAutoDiscriminateLocalLanguage();	//设置用户第一次用时，自动识别其所在国家的语种进行切换
 		}
 		if(typeof(translateConfig.currentLanguage) != 'undefined' && translateConfig.currentLanguage.length > 0){
