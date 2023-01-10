@@ -431,7 +431,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				if(typeof(option.translate.ignoreClass) != 'undefined' && option.translate.ignoreClass.length > 0){
 					var classs = option.translate.ignoreClass.split(',');
 					for(var ci = 0; ci < classs.length; ci++){
-						var className = classs[i].trim();
+						var className = classs[ci].trim();
 						if(className.length > 0){
 							if(translate.ignore.class.indexOf(className.toLowerCase()) > -1){
 								//已经有了，忽略
@@ -443,15 +443,15 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 					}
 				}
 				if(typeof(option.translate.ignoreTag) != 'undefined' && option.translate.ignoreTag.length > 0){
-					var classs = option.translate.ignoreTag.split(',');
-					for(var ci = 0; ci < classs.length; ci++){
-						var className = classs[i].trim();
-						if(className.length > 0){
-							if(translate.ignore.tag.indexOf(className.toLowerCase()) > -1){
+					var tags = option.translate.ignoreTag.split(',');
+					for(var ti = 0; ti < tags.length; ti++){
+						var tagName = tags[i].trim();
+						if(tagName.length > 0){
+							if(translate.ignore.tag.indexOf(tagName.toLowerCase()) > -1){
 								//已经有了，忽略
 							}else{
 								//还没有，加入
-								translate.ignore.tag.push(className);
+								translate.ignore.tag.push(tagName);
 							}
 						}
 					}
