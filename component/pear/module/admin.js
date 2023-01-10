@@ -416,12 +416,12 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				}
 			},
 			this.translate = function(option){
-				console.log('translate ....')
-				console.log(option);
+				//console.log('translate ....')
+				//console.log(option);
 				if(typeof(option.translate) == 'undefined'){
 					return;
 				}
-				window.translate = translate;
+				//window.translate = translate;
 				if(typeof(option.translate.autoDiscriminateLocalLanguage) != 'undefined' && (option.translate.autoDiscriminateLocalLanguage == true || option.translate.autoDiscriminateLocalLanguage == 'true' )){
 					translate.setAutoDiscriminateLocalLanguage();	//设置用户第一次用时，自动识别其所在国家的语种进行切换
 				}
