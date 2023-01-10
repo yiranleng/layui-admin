@@ -445,7 +445,7 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				if(typeof(option.translate.ignoreTag) != 'undefined' && option.translate.ignoreTag.length > 0){
 					var tags = option.translate.ignoreTag.split(',');
 					for(var ti = 0; ti < tags.length; ti++){
-						var tagName = tags[i].trim();
+						var tagName = tags[ti].trim();
 						if(tagName.length > 0){
 							if(translate.ignore.tag.indexOf(tagName.toLowerCase()) > -1){
 								//已经有了，忽略
