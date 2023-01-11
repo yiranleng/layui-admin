@@ -57,9 +57,8 @@ layui.config({
 		}
 		//admin.js 初始化完毕，translate配置已获取成功
 		var translateConfig = parent.window.pearTranslateConfig;
-		
-		clearInterval(template_temp_pearInterval);//停止
-		console.log('template_temp_pearInterval stop');
+		//停止
+		clearInterval(template_temp_pearInterval);
 		
 		/***** 配置项赋予 *****/
 		if(typeof(translateConfig.autoDiscriminateLocalLanguage) != 'undefined' && (translateConfig.autoDiscriminateLocalLanguage == true || translateConfig.autoDiscriminateLocalLanguage == 'true' )){
@@ -96,11 +95,8 @@ layui.config({
 				}
 			}
 		}
-		//设置使用v2.x 版本
-		translate.setUseVersion2(); 
 		//开启html页面变化的监控，对变化部分会进行自动翻译。注意，这里变化部分，是指当 translate.execute(); 已经完全执行完毕之后，如果页面再有变化的部分，才会对其进行翻译。
 		translate.listener.start();	
-		
 		//页面加载完毕后执行翻译
 		if(document.readyState == 'complete'){
 			translate.execute();
@@ -111,9 +107,8 @@ layui.config({
 		}
 		//避免有遗漏，特别是表格的render渲染等，诡异的会复原
 		setTimeout(translate.execute,1500);
-		console.log('translate execute')
 		
     }, 30);
-	console.log('template_temp_pearInterval create')
+	/***** translate.js 翻译 结束 ******/
 	
 });
