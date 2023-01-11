@@ -416,8 +416,6 @@ layui.define(['message', 'table', 'jquery', 'element', 'yaml', 'form', 'tab', 'm
 				}
 			},
 			this.translate = function(option){
-				//console.log('translate ....')
-				//console.log(option);
 				if(typeof(option.translate) == 'undefined'){
 					return;
 				}
