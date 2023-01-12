@@ -90,3 +90,4 @@ translate:
   ignoreClass: "ignore,test1,layui-logo"
   ## 忽略指定标签内容不进行翻译
   ignoreTag: "script,pre,code"
+  
